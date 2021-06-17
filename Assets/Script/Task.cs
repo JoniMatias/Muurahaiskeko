@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Task
 {
-    void Suorita(/*Ant ant*/)
+    public bool Do(Ant ant)
     {
-
+        return false;
     }
     int maxAnts = 5;
-    int currentAnts;
-    bool fitness()
+    public int currentAnts;
+    public bool fitness()
     {
         return currentAnts < maxAnts;
     }
