@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    //Node node
+    public Node node;
+    public static List<Building> buildArray = new List<Building>();
     private void Start()
     {
-        //transform.position=node.position
+        buildArray.Add(this);
     }
 }

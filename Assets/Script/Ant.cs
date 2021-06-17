@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ant : MonoBehaviour {
-    private Node currentNode;
-    Task currentTask = null;
-    Path currentPath = null;
+    public Node currentNode;
+    private Task currentTask = null;
+    public Path currentPath = null;
 
     public float speed = 2f;
 
@@ -13,6 +13,7 @@ public class Ant : MonoBehaviour {
 
     private void Start() {
         currentNode = Node.initialNode;
+        transform.position = Vector2.zero;
     }
 
     private void Update() {
@@ -22,23 +23,27 @@ public class Ant : MonoBehaviour {
             }
         }
         else {
-            if(currentTask.Do(this)) currentTask=null;
+            if (currentTask.Do(this))
+            {
+                currentTask.currentAnts--;
+                currentTask = null;
+            }
         }
-
+        /*
         if (currentPath != null && currentPath.AtGoal() == false) {
             transform.position = Vector2.MoveTowards(transform.position, currentPath.CurrentTarget().position, speed * Time.deltaTime);
         } else if (currentPath != null && currentPath.AtGoal()) {
             currentPath = null;
-        }
+        }*/
     }
 
     public void moveToNode(Node node) {
 
-        Path path = AStar.FindPath(currentNode, node);
-
+        currentNode=node;
+        transform.position = node.position;
     }
 
     public void moveToPosition(Vector2 position) {
-
+        transform.position = position;
     }
 }

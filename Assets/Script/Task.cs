@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Task
 {
-    public bool Do(Ant ant)
+    public virtual bool Do(Ant ant)
     {
         return false;
     }
-    int maxAnts = 5;
+    protected int maxAnts = 5;
     public int currentAnts;
-    public bool fitness()
+    public virtual bool fitness()
     {
         return currentAnts < maxAnts;
     }
