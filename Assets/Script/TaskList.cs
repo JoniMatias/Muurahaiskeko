@@ -18,5 +18,5 @@ public class TaskList
             return _instance;
         }
     }
-    public List<Task> taskList;
+    public List<Task> taskList = new List<Task>();
 }
