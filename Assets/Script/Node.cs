@@ -7,7 +7,19 @@ public class Node {
     public Vector2 position { private set; get; }
     public HashSet<Node> neighbours { private set; get; }
 
-    public Node() {
+    private static Node _initialNode = null;
+
+    public static Node initialNode {
+        get {
+            if (_initialNode == null) {
+                _initialNode = new Node(Vector2.zero);
+            }
+            return _initialNode;
+        }
+    }
+
+    public Node(Vector2 position) {
+        this.position = position;
         neighbours = new HashSet<Node>();
     }
 

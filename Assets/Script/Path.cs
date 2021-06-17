@@ -37,12 +37,12 @@ public class Path  {
         return points[points.Count];
     }
 
-    public Vector3 NextDirection(Vector2 currentPosition) {
+    public Vector2 NextDirection(Vector2 currentPosition) {
         Node target = CurrentTarget();
         if (target != null) {
             return (CurrentTarget().position - currentPosition).normalized;
         } else {
-            return Vector3.zero;
+            return Vector2.zero;
         }
     }
 
