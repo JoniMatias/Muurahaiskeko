@@ -15,6 +15,10 @@ public class Ant : MonoBehaviour {
     public GameObject path;
     private Transform pathHolder;
     public AntAnimator animator;
+    public GameObject prefab;
+    public string mood;
+    public string[] possibleMoods;
+    private float munchCD=3;
 
     public float speed = 0.2f;
 
@@ -29,6 +33,7 @@ public class Ant : MonoBehaviour {
         eventSystem = GameAIEventSystem.Instance;
         eventSystem.SendEvent(new GameAIEvent("Syntyi", transform.position, gameObject));
         pathHolder = GameObject.Find("PathHolder").transform;
+        mood = possibleMoods[Random.Range(0, possibleMoods.Length)];
     }
 
     private void OnDestroy() {
@@ -41,6 +46,7 @@ public class Ant : MonoBehaviour {
     }
 
     private void Update() {
+        if (munchCD > 0) munchCD -= Time.deltaTime;
         if (currentTask == null) {
             foreach (Task t in TaskList.Instance.taskList) {
                 if (t.fitness()) { currentTask = t; t.currentAnts++; break; }
@@ -53,7 +59,6 @@ public class Ant : MonoBehaviour {
                 currentTask = null;
             }
         }
-
         if (currentPath != null && currentPath.Edges.Count > edgeIndex) {
             animator.isWalking = true;
             IEdge currentEdge = currentPath.Edges[edgeIndex];
@@ -87,7 +92,7 @@ public class Ant : MonoBehaviour {
         } else if (recall == false) {
             Node closestNode = GraphController.ClosestNodeToPosition(node.Position);
             Node targetNode = GraphController.BuildNodesToNode(node, closestNode);
-            moveToNode(targetNode, true);
+            moveToNode(node, true);
         } else if (recall == true) {
             Debug.Log("Ant stranded " + gameObject);
         }
@@ -99,5 +104,18 @@ public class Ant : MonoBehaviour {
         Node targetNode = GraphController.BuildNodesToNode(new Node(position), closestNode);
         Path path = finder.FindPath(currentNode, targetNode, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(speed));
         currentPath = path;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (mood == "angry" && collision.transform.GetComponent<Ant>().mood == "angry")
+        {
+            GameAIEventSystem.Instance.SendEvent(new GameAIEvent("fight", transform.position, gameObject));
+        }
+        if(mood == "cannibal" && munchCD <= 0)
+        {
+            GameAIEventSystem.Instance.SendEvent(new GameAIEvent("munch", transform.position, gameObject));
+            Destroy(collision.gameObject);
+            munchCD = 3f;
+        }
     }
 }

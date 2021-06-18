@@ -15,6 +15,7 @@ public class TaskFactory : MonoBehaviour, GameAIEventListener {
     private void Start()
     {
         StartCoroutine("e");
+        taskCreate(new Shmex());
         GameAIEventSystem.Instance.RegisterForEvents(this);
     }
 
@@ -23,7 +24,8 @@ public class TaskFactory : MonoBehaviour, GameAIEventListener {
         while (true)
         {
             taskCreate(new HaeRuokaa());
-            yield return new WaitForSeconds(15);
+            yield return new WaitForSeconds(3);
+            if(Random.value<0.1) taskCreate(new Shmex());   
         }
     }
 

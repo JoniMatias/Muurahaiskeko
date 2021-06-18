@@ -1,3 +1,4 @@
+using Roy_T.AStar.Graphs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,8 @@ public class HaeRuokaa : Task
         if (dict[ant] == 0 && ant.currentPath == null)
         {
             //Debug.Log("a");
-            ant.moveToNode(GraphController.foodNodes[Random.Range(0, GraphController.foodNodes.Count)]);
+            Node node = GraphController.foodNodes[Random.Range(0, GraphController.foodNodes.Count)];
+            ant.moveToNode(node);
             dict[ant]++;
         }
         return false;

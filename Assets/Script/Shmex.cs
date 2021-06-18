@@ -24,7 +24,8 @@ public class Shmex : Task
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    //Object.Instantiate()
+                    TaskList.Instance.taskList.Remove(this);
+                    Object.Instantiate(ant.prefab, ant.transform.position, ant.transform.rotation);
                 }
                 return true;
             } 
