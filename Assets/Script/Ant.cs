@@ -11,7 +11,9 @@ public class Ant : MonoBehaviour {
     public Task currentTask = null;
     public Path currentPath = null;
     private int edgeIndex = 0;
-
+    private Vector2 lastpath;
+    public GameObject path;
+    private Transform pathHolder;
     public AntAnimator animator;
 
     public float speed = 0.2f;
@@ -26,6 +28,7 @@ public class Ant : MonoBehaviour {
         Invoke("StartMovement", 0.2f);
         eventSystem = GameAIEventSystem.Instance;
         eventSystem.SendEvent(new GameAIEvent("Syntyi", transform.position, gameObject));
+        pathHolder = GameObject.Find("PathHolder").transform;
     }
 
     private void OnDestroy() {
@@ -58,6 +61,15 @@ public class Ant : MonoBehaviour {
             if (Vector2.Distance(transform.position, currentEdge.End.Position) < 0.1f) {
                 edgeIndex++;
                 currentNode = (Node)currentEdge.End;
+            }
+            transform.right = currentEdge.End.Position - transform.position;
+            Vector3 scal = transform.localScale;
+            if (currentEdge.End.Position.X < transform.position.x) scal.y = -1;
+            else scal.y = 1;
+            transform.localScale = scal;
+            if (Vector2.Distance(lastpath, transform.position) > 0.2f)
+            {
+                Instantiate(path, transform.position, Quaternion.LookRotation(Vector3.forward, currentEdge.End.Position - transform.position)).transform.parent = pathHolder;
             }
         } else if (currentPath != null && currentPath.Edges.Count <= edgeIndex) {
             edgeIndex = 0;

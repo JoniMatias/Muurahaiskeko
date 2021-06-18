@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481e46e4b287b7948a29fefae41c01e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: {fileID: 2312336022977578069, guid: 7896e0a221e481f44898d5c21a98bc58, type: 3}
+  pathHolder: {fileID: 0}
   animator: {fileID: 8850208235406023029}
   speed: 2
 --- !u!114 &8850208235406023029
