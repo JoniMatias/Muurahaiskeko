@@ -54,6 +54,7 @@ public class Ant : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, currentPath.Edges[edgeIndex].End.Position, speed * Time.deltaTime);
             if (Vector2.Distance(transform.position, currentEdge.End.Position) < 0.1f) {
                 edgeIndex++;
+                currentNode = (Node)currentEdge.End;
             }
         } else if (currentPath != null && currentPath.Edges.Count <= edgeIndex) {
             edgeIndex = 0;
