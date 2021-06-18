@@ -18,5 +18,11 @@ public class TaskList
             return _instance;
         }
     }
+
+
+    public static void AddTask(Task task) {
+        Instance.taskList.Add(task);
+    }
+
     public List<Task> taskList = new List<Task>();
 }

@@ -14,16 +14,24 @@ public class Ant : MonoBehaviour {
 
     public float speed = 0.2f;
 
+    private GameAIEventSystem eventSystem;
+
 
 
     private void Start() {
         currentNode = GraphController.initialNode;
         transform.position = Vector2.zero;
         Invoke("StartMovement", 0.2f);
+        eventSystem = GameAIEventSystem.Instance;
+        eventSystem.SendEvent(new GameAIEvent("Syntyi", transform.position, gameObject));
+    }
+
+    private void OnDestroy() {
+        eventSystem.SendEvent(new GameAIEvent("Kuoli", transform.position, gameObject));
     }
 
     private void StartMovement() {
-        moveToNode(GraphController.foodNodes[0]);
+        //moveToNode(GraphController.foodNodes[0]);
         //moveToPosition(new Vector2(6f, 4f));
     }
 
@@ -41,12 +49,9 @@ public class Ant : MonoBehaviour {
             }
         }
 
-        Debug.Log("Path: " + currentPath);
-
         if (currentPath != null && currentPath.Edges.Count > edgeIndex) {
             IEdge currentEdge = currentPath.Edges[edgeIndex];
             transform.position = Vector2.MoveTowards(transform.position, currentPath.Edges[edgeIndex].End.Position, speed * Time.deltaTime);
-            Debug.Log("Move " + edgeIndex + " >> " + currentPath.Edges.Count);
             if (Vector2.Distance(transform.position, currentEdge.End.Position) < 0.1f) {
                 edgeIndex++;
             }
@@ -56,16 +61,18 @@ public class Ant : MonoBehaviour {
         }
     }
 
-    public void moveToNode(Node node) {
+    public void moveToNode(Node node, bool recall = false) {
         PathFinder finder = new PathFinder();
-        Path path = finder.FindPath(currentNode, node, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(speed));
+        Path path = finder.FindPath(currentNode, node, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(speed*2));
 
         if (path.Edges.Count > 0) {
             currentPath = path;
-        } else {
+        } else if (recall == false) {
             Node closestNode = GraphController.ClosestNodeToPosition(node.Position);
             Node targetNode = GraphController.BuildNodesToNode(node, closestNode);
-            moveToNode(targetNode);
+            moveToNode(targetNode, true);
+        } else if (recall == true) {
+            Debug.Log("Ant stranded " + gameObject);
         }
     }
 

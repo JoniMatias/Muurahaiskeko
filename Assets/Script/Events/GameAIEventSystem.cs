@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class GameAIEventSystem : MonoBehaviour {
 
+    private static GameAIEventSystem _instance;
+
+    public static GameAIEventSystem Instance {
+        get {
+            if (_instance == null) {
+                _instance = GameObject.FindObjectOfType<GameAIEventSystem>();
+            }
+
+            return _instance;
+        }
+    }
+
+
     private List<GameAIEventListener> listeners = new List<GameAIEventListener>();
 
     private List<GameAIEvent> events = new List<GameAIEvent>();

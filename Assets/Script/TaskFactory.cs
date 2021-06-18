@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskFactory : MonoBehaviour {
+public class TaskFactory : MonoBehaviour, GameAIEventListener {
+
 
     void taskCreate(Task task)
     {
@@ -12,6 +13,8 @@ public class TaskFactory : MonoBehaviour {
     private void Start()
     {
         StartCoroutine("e");
+
+        GameAIEventSystem.Instance.RegisterForEvents(this);
     }
 
     private IEnumerator e()
@@ -21,5 +24,11 @@ public class TaskFactory : MonoBehaviour {
             yield return new WaitForSeconds(5);
             taskCreate(new HaeRuokaa());
         }
+    }
+
+    public void ReceiveEvent(GameAIEvent e) {
+
+        
+
     }
 }

@@ -85,6 +85,7 @@ public class GraphController {
             Node newNode = new Node(nodePos);
 
             ConnectNodes(startNode, newNode);
+            ConnectNodes(newNode, startNode);
 
             return BuildNodesToNode(target, newNode);
         }
