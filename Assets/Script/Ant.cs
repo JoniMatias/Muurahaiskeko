@@ -41,9 +41,12 @@ public class Ant : MonoBehaviour {
             }
         }
 
+        Debug.Log("Path: " + currentPath);
+
         if (currentPath != null && currentPath.Edges.Count > edgeIndex) {
             IEdge currentEdge = currentPath.Edges[edgeIndex];
             transform.position = Vector2.MoveTowards(transform.position, currentPath.Edges[edgeIndex].End.Position, speed * Time.deltaTime);
+            Debug.Log("Move " + edgeIndex + " >> " + currentPath.Edges.Count);
             if (Vector2.Distance(transform.position, currentEdge.End.Position) < 0.1f) {
                 edgeIndex++;
             }
@@ -56,6 +59,7 @@ public class Ant : MonoBehaviour {
     public void moveToNode(Node node) {
         PathFinder finder = new PathFinder();
         Path path = finder.FindPath(currentNode, node, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(speed));
+
         if (path.Edges.Count > 0) {
             currentPath = path;
         } else {

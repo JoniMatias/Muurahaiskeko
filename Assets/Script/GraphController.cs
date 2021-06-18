@@ -73,14 +73,14 @@ public class GraphController {
         Vector2 nodePos;
 
         Debug.Log("BuildNodesToNode " + target + " >> " + startNode);
-        if (Vector2.Distance(startNode.Position, target.Position) > nodeDistance) {
+        if (Vector2.Distance(startNode.Position, target.Position) < nodeDistance * 1.5f) {
             ConnectNodes(target, startNode);
             return target;
         } else {
             Vector2 direction = ((Vector2)target.Position - (Vector2)startNode.Position).normalized;
             direction *= nodeDistance;
 
-            nodePos = direction + new Vector2(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f));
+            nodePos = startNode.Position + direction + new Vector2(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f));
 
             Node newNode = new Node(nodePos);
 
