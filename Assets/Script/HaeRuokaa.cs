@@ -7,16 +7,20 @@ public class HaeRuokaa : Task
     override public bool Do(Ant ant)
     {
         if (!dict.ContainsKey(ant)) dict.Add(ant, 0);
-        if (ant.currentPath == null && dict[ant] == 2)
+        if (ant.currentPath == null && dict[ant] == 3)
         {
-            Debug.Log("c");
-
             dict[ant] = 0;
+            GameAIEventSystem.Instance.SendEvent(new GameAIEvent("Ruokaa", GraphController.initialNode.Position, ant.gameObject));
             return true;
+        }
+        if (ant.currentPath != null && dict[ant] == 2)
+        {
+            //Debug.Log("c");
+            dict[ant]++;
         }
         if (ant.currentPath == null && dict[ant] == 1)
         {
-            Debug.Log("b");
+            //Debug.Log("b");
             food++;
             if (food > 4)
             {
@@ -27,8 +31,8 @@ public class HaeRuokaa : Task
         }
         if (dict[ant] == 0 && ant.currentPath == null)
         {
-            Debug.Log("a");
-            ant.moveToNode(GraphController.foodNodes[Random.Range(0, GraphController.foodNodes.Count-1)]);
+            //Debug.Log("a");
+            ant.moveToNode(GraphController.foodNodes[Random.Range(0, GraphController.foodNodes.Count)]);
             dict[ant]++;
         }
         return false;

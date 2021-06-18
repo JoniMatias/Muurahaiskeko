@@ -47,6 +47,7 @@ public class GraphController {
 
 
     public static void ConnectNodes(Node start, Node end) {
+        //Debug.Log("ConnectNodes:" + start.Position + "  " + end.Position);
         start.Connect(end, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(2));
         end.Connect(start, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(2));
 
@@ -72,7 +73,7 @@ public class GraphController {
 
         Vector2 nodePos;
 
-        Debug.Log("BuildNodesToNode " + target + " >> " + startNode);
+        //Debug.Log("BuildNodesToNode " + target + " >> " + startNode);
         if (Vector2.Distance(startNode.Position, target.Position) < nodeDistance * 1.5f) {
             ConnectNodes(target, startNode);
             return target;

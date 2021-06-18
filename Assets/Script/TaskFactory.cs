@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Roy_T.AStar.Graphs;
 public class TaskFactory : MonoBehaviour, GameAIEventListener {
-
     public Building discoPrefab;
     public Building hospitalPrefab;
     public Building arenaPrefab;
@@ -16,7 +15,6 @@ public class TaskFactory : MonoBehaviour, GameAIEventListener {
     private void Start()
     {
         StartCoroutine("e");
-
         GameAIEventSystem.Instance.RegisterForEvents(this);
     }
 
@@ -24,14 +22,13 @@ public class TaskFactory : MonoBehaviour, GameAIEventListener {
     {
         while (true)
         {
-            yield return new WaitForSeconds(5);
             taskCreate(new HaeRuokaa());
+            yield return new WaitForSeconds(15);
         }
     }
 
     public void ReceiveEvent(GameAIEvent e) {
-
-        
+        Debug.Log(e.id);
 
     }
 }
