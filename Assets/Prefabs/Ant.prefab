@@ -388,6 +388,24 @@ MonoBehaviour:
   - sad
   - e
   - cannibal
+  - soturi
+  - kaboom
+  - e
+  - e
+  - e
+  pilvi: {fileID: 5907547433271335016, guid: 0c5fd414f085a1c4f80a7d0d4a73d9e1, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: c6bdc288556b948ec8a8ef7e7f998e1d, type: 3}
+  - {fileID: 21300000, guid: 2710878731323b5439d5f9df1a4e3a41, type: 3}
+  - {fileID: 21300000, guid: b1d3d6860a3eec94694effe680b28ff7, type: 3}
+  - {fileID: 21300000, guid: 7c9e35afa07d290419bf5ad7d2ba8263, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  mainSR: {fileID: 8850208233837342230}
   speed: 2
 --- !u!114 &8850208235406023029
 MonoBehaviour:

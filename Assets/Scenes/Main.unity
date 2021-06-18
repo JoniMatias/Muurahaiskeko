@@ -422,9 +422,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef2d287f2bd62d44b0b064bb03c5b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  discoPrefab: {fileID: 0}
-  hospitalPrefab: {fileID: 0}
-  arenaPrefab: {fileID: 0}
+  discoPrefab: {fileID: 5507600447550541276, guid: 05181ff888f0c334aa183f2f373ca35d, type: 3}
+  hospitalPrefab: {fileID: 8831415356161951832, guid: 7b6ac2e208a4f374baf6ecfc73b97c24, type: 3}
+  arenaPrefab: {fileID: 6707639085270942515, guid: 6faf422ecb4c144c3bb8960b096d0ff0, type: 3}
 --- !u!4 &1095425200
 Transform:
   m_ObjectHideFlags: 0
