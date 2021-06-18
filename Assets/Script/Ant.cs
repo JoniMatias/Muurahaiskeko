@@ -12,6 +12,8 @@ public class Ant : MonoBehaviour {
     public Path currentPath = null;
     private int edgeIndex = 0;
 
+    public AntAnimator animator;
+
     public float speed = 0.2f;
 
     private GameAIEventSystem eventSystem;
@@ -50,6 +52,7 @@ public class Ant : MonoBehaviour {
         }
 
         if (currentPath != null && currentPath.Edges.Count > edgeIndex) {
+            animator.isWalking = true;
             IEdge currentEdge = currentPath.Edges[edgeIndex];
             transform.position = Vector2.MoveTowards(transform.position, currentPath.Edges[edgeIndex].End.Position, speed * Time.deltaTime);
             if (Vector2.Distance(transform.position, currentEdge.End.Position) < 0.1f) {
@@ -59,6 +62,7 @@ public class Ant : MonoBehaviour {
         } else if (currentPath != null && currentPath.Edges.Count <= edgeIndex) {
             edgeIndex = 0;
             currentPath = null;
+            animator.isWalking = false;
         }
     }
 

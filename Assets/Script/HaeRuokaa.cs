@@ -10,6 +10,7 @@ public class HaeRuokaa : Task
         if (ant.currentPath == null && dict[ant] == 2)
         {
             Debug.Log("c");
+
             dict[ant] = 0;
             return true;
         }
