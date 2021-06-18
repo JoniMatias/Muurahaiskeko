@@ -11,12 +11,37 @@ public class GraphController {
 
     private static Roy_T.AStar.Graphs.Node _initialNode = null;
 
+    private static List<Node> _foodNodes = null;
+
     public static Roy_T.AStar.Graphs.Node initialNode {
         get {
             if (_initialNode == null) {
                 _initialNode = new Roy_T.AStar.Graphs.Node(new Roy_T.AStar.Primitives.Position(0,0));
+                nodes.Add(_initialNode);
             }
             return _initialNode;
+        }
+    }
+
+    public static List<Node> foodNodes {
+        get {
+            if (_foodNodes == null) {
+                _foodNodes = new List<Node>();
+                Node n1 = new Node(new Vector2(-11, -3));
+                Node n2 = new Node(new Vector2(-11, 0));
+                Node n3 = new Node(new Vector2(-11, 3));
+                Node n4 = new Node(new Vector2(11, -3));
+                Node n5 = new Node(new Vector2(11, 0));
+                Node n6 = new Node(new Vector2(11, 3));
+
+                _foodNodes.Add(n1);
+                _foodNodes.Add(n2);
+                _foodNodes.Add(n3);
+                _foodNodes.Add(n4);
+                _foodNodes.Add(n5);
+                _foodNodes.Add(n6);
+            }
+            return _foodNodes;
         }
     }
 
@@ -25,6 +50,7 @@ public class GraphController {
         start.Connect(end, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(2));
         end.Connect(start, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(2));
 
+        nodes.Add(start);
         nodes.Add(end);
     }
 
@@ -41,30 +67,26 @@ public class GraphController {
         return closestNode;
     }
 
-    public static Node BuildNodesToPosition(Vector2 target, Node startNode) {
+    public static Node BuildNodesToNode(Node target, Node startNode) {
         float nodeDistance = 0.8f;
 
         Vector2 nodePos;
 
-        if (Vector2.Distance(startNode.Position, target) > nodeDistance) {
-            nodePos = target;
+        Debug.Log("BuildNodesToNode " + target + " >> " + startNode);
+        if (Vector2.Distance(startNode.Position, target.Position) > nodeDistance) {
+            ConnectNodes(target, startNode);
+            return target;
         } else {
-            Vector2 direction = (target - startNode.Position).normalized;
+            Vector2 direction = ((Vector2)target.Position - (Vector2)startNode.Position).normalized;
             direction *= nodeDistance;
 
             nodePos = direction + new Vector2(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f));
-        }
 
+            Node newNode = new Node(nodePos);
 
-        Node newNode = new Node(nodePos);
+            ConnectNodes(startNode, newNode);
 
-        ConnectNodes(newNode, startNode);
-        ConnectNodes(startNode, newNode);
-
-        if (Vector2.Distance(newNode.Position, target) < 0.2f) {
-            return newNode;
-        } else {
-            return BuildNodesToPosition(target, newNode);
+            return BuildNodesToNode(target, newNode);
         }
     }
 

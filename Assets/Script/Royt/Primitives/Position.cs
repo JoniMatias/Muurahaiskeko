@@ -29,6 +29,8 @@ namespace Roy_T.AStar.Primitives
 
         public static implicit operator Vector2(Position p) => new Vector2(p.X, p.Y);
         public static implicit operator Position(Vector2 v) => new Position(v.x, v.y);
+        public static implicit operator Vector3(Position p) => new Vector3(p.X, p.Y, 0);
+        public static implicit operator Position(Vector3 v) => new Position(v.x, v.y);
 
         public override bool Equals(object obj) => obj is Position position && this.Equals(position);
 
