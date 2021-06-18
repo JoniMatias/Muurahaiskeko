@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9183441852079034502}
   - component: {fileID: 5507600447550541276}
   - component: {fileID: 8863896610004395214}
+  - component: {fileID: 7320181288915893711}
   m_Layer: 0
   m_Name: Disco
   m_TagString: Untagged
@@ -95,3 +96,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &7320181288915893711
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578716084725015823}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.05255592, y: 0.03753996}
+  serializedVersion: 2
+  m_Radius: 0.64315283

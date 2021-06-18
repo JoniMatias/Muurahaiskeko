@@ -10,8 +10,6 @@ public class TaskFactory : MonoBehaviour, GameAIEventListener {
     public Building hospitalPrefab;
     public Building arenaPrefab;
 
-    public Ant antPrefab;
-
     void taskCreate(Task task)
     {
         TaskList.Instance.taskList.Add(task);
@@ -34,8 +32,6 @@ public class TaskFactory : MonoBehaviour, GameAIEventListener {
 
 
     public void ReceiveEvent(GameAIEvent e) {
-
         Debug.Log(e.id);
-
     }
 }
