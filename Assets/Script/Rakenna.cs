@@ -11,6 +11,7 @@ public class Rakenna : Task
         node = nod;
         building = buildin;
         difficulty = diff;
+        maxAnts = 1;
     }
     override public bool Do(Ant ant)
     {

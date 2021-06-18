@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Roy_T.AStar.Graphs;
+
+using Roy_T.AStar.Primitives;
+
 public class TaskFactory : MonoBehaviour, GameAIEventListener {
     public Building discoPrefab;
     public Building hospitalPrefab;
     public Building arenaPrefab;
+
+    public Ant antPrefab;
 
     void taskCreate(Task task)
     {
@@ -27,7 +32,9 @@ public class TaskFactory : MonoBehaviour, GameAIEventListener {
         }
     }
 
+
     public void ReceiveEvent(GameAIEvent e) {
+
         Debug.Log(e.id);
 
     }
