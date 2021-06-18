@@ -11,8 +11,18 @@ public class Ant : MonoBehaviour {
     public Task currentTask = null;
     public Path currentPath = null;
     private int edgeIndex = 0;
-
+    private Vector2 lastpath;
+    public GameObject path;
+    private Transform pathHolder;
     public AntAnimator animator;
+    public GameObject prefab;
+    public string mood;
+    public string[] possibleMoods;
+    private float munchCD=3;
+    public GameObject pilvi;
+    public Sprite[] sprites;
+    public SpriteRenderer mainSR;
+    private bool newpath;
 
     public float speed = 0.2f;
 
@@ -26,6 +36,10 @@ public class Ant : MonoBehaviour {
         Invoke("StartMovement", 0.2f);
         eventSystem = GameAIEventSystem.Instance;
         eventSystem.SendEvent(new GameAIEvent("Syntyi", transform.position, gameObject));
+        pathHolder = GameObject.Find("PathHolder").transform;
+        int i = Random.Range(0, possibleMoods.Length);
+        mood = possibleMoods[i];
+        mainSR.sprite = sprites[i];
     }
 
     private void OnDestroy() {
@@ -38,6 +52,7 @@ public class Ant : MonoBehaviour {
     }
 
     private void Update() {
+        if (munchCD > 0) munchCD -= Time.deltaTime;
         if (currentTask == null) {
             foreach (Task t in TaskList.Instance.taskList) {
                 if (t.fitness()) { currentTask = t; t.currentAnts++; break; }
@@ -50,7 +65,6 @@ public class Ant : MonoBehaviour {
                 currentTask = null;
             }
         }
-
         if (currentPath != null && currentPath.Edges.Count > edgeIndex) {
             animator.isWalking = true;
             IEdge currentEdge = currentPath.Edges[edgeIndex];
@@ -58,6 +72,15 @@ public class Ant : MonoBehaviour {
             if (Vector2.Distance(transform.position, currentEdge.End.Position) < 0.1f) {
                 edgeIndex++;
                 currentNode = (Node)currentEdge.End;
+            }
+            transform.right = currentEdge.End.Position - transform.position;
+            Vector3 scal = transform.localScale;
+            if (currentEdge.End.Position.X < transform.position.x) scal.y = -1;
+            else scal.y = 1;
+            transform.localScale = scal;
+            if (Vector2.Distance(lastpath, transform.position) > 0.2f && newpath)
+            {
+                Instantiate(path, transform.position, Quaternion.LookRotation(Vector3.forward, currentEdge.End.Position - transform.position)).transform.parent = pathHolder;
             }
         } else if (currentPath != null && currentPath.Edges.Count <= edgeIndex) {
             edgeIndex = 0;
@@ -67,6 +90,7 @@ public class Ant : MonoBehaviour {
     }
 
     public void moveToNode(Node node, bool recall = false) {
+        newpath = recall;
         PathFinder finder = new PathFinder();
         Path path = finder.FindPath(currentNode, node, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(speed*2));
 
@@ -75,7 +99,7 @@ public class Ant : MonoBehaviour {
         } else if (recall == false) {
             Node closestNode = GraphController.ClosestNodeToPosition(node.Position);
             Node targetNode = GraphController.BuildNodesToNode(node, closestNode);
-            moveToNode(targetNode, true);
+            moveToNode(node, true);
         } else if (recall == true) {
             Debug.Log("Ant stranded " + gameObject);
         }
@@ -87,5 +111,38 @@ public class Ant : MonoBehaviour {
         Node targetNode = GraphController.BuildNodesToNode(new Node(position), closestNode);
         Path path = finder.FindPath(currentNode, targetNode, Roy_T.AStar.Primitives.Velocity.FromMetersPerSecond(speed));
         currentPath = path;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (mood == "angry" && collision.transform.GetComponent<Ant>().mood == "angry")
+        {
+            GameAIEventSystem.Instance.SendEvent(new GameAIEvent("fight", transform.position, gameObject));
+        }
+        if(mood == "cannibal" && munchCD <= 0 && collision.transform.GetComponent<Ant>().mood != "soturi")
+        {
+            GameAIEventSystem.Instance.SendEvent(new GameAIEvent("munch", transform.position, gameObject));
+            Destroy(collision.gameObject);
+            munchCD = 3f;
+            Destroy(Instantiate(pilvi, transform.position, Quaternion.identity), 1);
+        }
+        if(mood=="soturi" && collision.transform.GetComponent<Ant>().mood == "cannibal")
+        {
+            GameAIEventSystem.Instance.SendEvent(new GameAIEvent("death penalty", transform.position, gameObject));
+            Destroy(collision.gameObject);
+            Destroy(Instantiate(pilvi, transform.position, Quaternion.identity), 1);
+        }
+        if (mood == "kaboom" && collision.transform.GetComponent<Ant>().mood == "kaboom" && Vector2.Distance(Vector2.zero, transform.position)>3)
+        {
+            GameAIEventSystem.Instance.SendEvent(new GameAIEvent("kaboom", transform.position, gameObject));
+            GameObject g;
+            Destroy(g = Instantiate(pilvi, transform.position, Quaternion.identity), 5);
+            Destroy(collision.gameObject);
+            g.transform.localScale = new Vector3 (2, 2, 1);
+            pilvi.AddComponent<BoxCollider2D>().isTrigger = true;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
     }
 }

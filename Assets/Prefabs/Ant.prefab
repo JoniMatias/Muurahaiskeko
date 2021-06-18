@@ -339,6 +339,8 @@ GameObject:
   - component: {fileID: 8850208235406023035}
   - component: {fileID: 8850208235406023028}
   - component: {fileID: 8850208235406023029}
+  - component: {fileID: 7629143557273921987}
+  - component: {fileID: 696462082767127934}
   m_Layer: 0
   m_Name: Ant
   m_TagString: Untagged
@@ -376,7 +378,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481e46e4b287b7948a29fefae41c01e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: {fileID: 2312336022977578069, guid: 7896e0a221e481f44898d5c21a98bc58, type: 3}
   animator: {fileID: 8850208235406023029}
+  prefab: {fileID: 8850208235406023030}
+  mood: 
+  possibleMoods:
+  - angry
+  - happy
+  - sad
+  - e
+  - cannibal
+  - soturi
+  - kaboom
+  - e
+  - e
+  - e
+  pilvi: {fileID: 5907547433271335016, guid: 0c5fd414f085a1c4f80a7d0d4a73d9e1, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: c6bdc288556b948ec8a8ef7e7f998e1d, type: 3}
+  - {fileID: 21300000, guid: 2710878731323b5439d5f9df1a4e3a41, type: 3}
+  - {fileID: 21300000, guid: b1d3d6860a3eec94694effe680b28ff7, type: 3}
+  - {fileID: 21300000, guid: 7c9e35afa07d290419bf5ad7d2ba8263, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  - {fileID: 21300000, guid: 8fe65e351c6ab44479259ba962c32952, type: 3}
+  mainSR: {fileID: 8850208233837342230}
   speed: 2
 --- !u!114 &8850208235406023029
 MonoBehaviour:
@@ -395,3 +424,50 @@ MonoBehaviour:
   leg2: {fileID: 8850208234585858313}
   leg3: {fileID: 8850208234303222998}
   isWalking: 0
+--- !u!61 &7629143557273921987
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850208235406023030}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0018846095, y: -0.011307657}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8454618, y: 0.45723152}
+  m_EdgeRadius: 0
+--- !u!50 &696462082767127934
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850208235406023030}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

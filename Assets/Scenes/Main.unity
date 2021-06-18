@@ -541,6 +541,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8850208233714802054, guid: a76d72f3b7b7649b69949abb7d4b8a6c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850208234303222998, guid: a76d72f3b7b7649b69949abb7d4b8a6c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850208234585858313, guid: a76d72f3b7b7649b69949abb7d4b8a6c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8850208235406023030, guid: a76d72f3b7b7649b69949abb7d4b8a6c, type: 3}
       propertyPath: m_Name
       value: Ant (3)
