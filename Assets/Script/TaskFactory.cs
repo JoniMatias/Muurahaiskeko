@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TaskFactory : MonoBehaviour, GameAIEventListener {
 
+    public Building discoPrefab;
+    public Building hospitalPrefab;
+    public Building arenaPrefab;
 
     void taskCreate(Task task)
     {
